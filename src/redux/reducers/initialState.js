@@ -1,5 +1,6 @@
 export default {
   courses: [],
   authors: [],
-  apiCallsInProgress: 0
+  apiCallsInProgress: 0,
+  filter: "",
 };

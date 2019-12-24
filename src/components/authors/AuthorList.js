@@ -2,38 +2,41 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const CourseList = ({ courses, onDeleteClick }) => (
+const AuthorList = ({ authors, courses, onDeleteClick }) => (
   <table className="table">
     <thead>
       <tr>
         <th />
-        <th>Title</th>
         <th>Author</th>
-        <th>Category</th>
+        <th>Number of Courses</th>
         <th />
       </tr>
     </thead>
     <tbody>
-      {courses.map(course => {
+      {authors.map(author => {
         return (
-          <tr key={course.id}>
+          <tr key={author.id}>
             <td>
               <a
                 className="btn btn-light"
-                href={"http://pluralsight.com/courses/" + course.slug}
+                href={"http://pluralsight.com/authors/" + author.id}
               >
-                Watch
+                Courses
               </a>
             </td>
             <td>
-              <Link to={"/course/" + course.slug}>{course.title}</Link>
+              <Link to={"/author/" + author.id}>{author.name}</Link>
             </td>
-            <td>{course.authorName}</td>
-            <td>{course.category}</td>
+            <td>{courses.reduce((count, course) => {
+              if (course.authorId === author.id) {
+                  return count  + 1
+              } else return count + 0
+            }, 0)
+            }</td>
             <td>
               <button
                 className="btn btn-outline-danger"
-                onClick={() => onDeleteClick(course)}
+                onClick={() => onDeleteClick(author)}
               >
                 Delete
               </button>
@@ -45,9 +48,10 @@ const CourseList = ({ courses, onDeleteClick }) => (
   </table>
 );
 
-CourseList.propTypes = {
+AuthorList.propTypes = {
+  authors: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
   onDeleteClick: PropTypes.func.isRequired
 };
 
-export default CourseList;
+export default AuthorList;

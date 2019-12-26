@@ -66,16 +66,18 @@ class CoursesPage extends React.Component {
 
             <TextInput
               name="filter"
-              label="Filter by..."
-              placeholder="Filter by..."
+              label="Filter Courses"
+              placeholder="Filter..."
               value={this.state.filterValue}
               onChange={(event) => this.handleFilterChange(event.target)}
             />
-
-            <CourseList
-              onDeleteClick={this.handleDeleteCourse}
-              courses={this.props.filteredCourses.length === 0 ? this.props.courses : this.props.filteredCourses}
-            />
+            {this.props.courses.length === 0 
+            ? <h3>No Courses are available</h3> 
+            : <CourseList
+                onDeleteClick={this.handleDeleteCourse}
+                courses={this.props.filteredCourses.length === 0 ? this.props.courses : this.props.filteredCourses}
+              />
+            }
           </>
         )}
       </>

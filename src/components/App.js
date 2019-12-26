@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="container-fluid">
-      <Header />
+      <Header coursesCount={5}/>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />

@@ -85,5 +85,8 @@ function validateCourse(course) {
   if (!course.title) return "Title is required.";
   if (!course.authorId) return "Author is required.";
   if (!course.category) return "Category is required.";
+  let regex = RegExp("/(?!^[_-].+)(?!.+[_-]$)(?!.*[_-]{2,})[^<>[\\]{}|\\\\\\/^~%# :;,$%?\\0-\\cZ]+$/gm");
+  if (!regex.test(course.title)) return "No special charaters allowed";
+  if (!regex.test(course.category)) return "No special charaters allowed";
   return "";
 }

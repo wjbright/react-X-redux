@@ -93,7 +93,17 @@ CoursesPage.propTypes = {
   filteredCourses: PropTypes.array,
 };
 
+function formatFilteredCourses(courses, authors) {
+  return courses.map(course => {
+    return {
+      ...course,
+      authorName: authors.find(a => a.id === course.authorId).name
+    };
+  })
+}
+
 function mapStateToProps(state) {
+  let modifiedCourses = state.courses.filter(course => course.title.toLowerCase().includes(state.filter))
   return {
     courses:
       state.authors.length === 0
@@ -108,7 +118,7 @@ function mapStateToProps(state) {
     loading: state.apiCallsInProgress > 0,
     filteredCourses: !state.filter
      ? [] 
-     : state.courses.filter(course => course.title.toLowerCase().includes(state.filter))
+     : formatFilteredCourses(modifiedCourses, state.authors) || []
   };
 }
 
